@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutAplication">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        android:text="- הקדמה: דוגז היא אפליקציה שמאפשרת לבעלי כלבים לטפל בהם כמו שצריך, על ידי תזכורות יומיות להאכיל אותם, ולקחת אותם לטיולים." />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:text="- מטרה: להפחית את כמות האנשים שמזניחים את כלביהם, ולהקל עליהם לטפל בהם." />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:text="- קהל היעד: בעלי כלבים בישראל, שלוח זמניהם עמוס ביותר." />
+</LinearLayout>

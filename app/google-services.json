@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "812348955258",
+    "firebase_url": "https://rawiworkspace.firebaseio.com",
+    "project_id": "rawiworkspace",
+    "storage_bucket": "rawiworkspace.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812348955258:android:1bb9b57fb59b90ab",
+        "android_client_info": {
+          "package_name": "com.example.user.dogsapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812348955258-10mmol8p2qguq6n6stoj7468ojghojv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBErOxAFNx1KK_E_8QRQsb4UmPNI3HtaFQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
