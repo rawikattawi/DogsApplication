@@ -2,6 +2,7 @@ package com.example.user.dogsapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,7 +11,9 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 
@@ -18,21 +21,47 @@ public class CameraGalleryActivity extends AppCompatActivity implements View.OnC
     private static final int CAMERA_REQUEST = 0;
     private static final int SELECT_IMAGE = 1;
     ImageView imageView;
-    Button btGallery, btTakePhoto;
-
+    Button btGallery, btTakePhoto , btSave;
+    EditText etName;
+    TextView tvName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_gallery);
-        btTakePhoto =findViewById(R.id.btTakePhoto);
+        btTakePhoto = findViewById(R.id.btTakePhoto);
         btTakePhoto.setOnClickListener(this);
+
+        etName = findViewById(R.id.etName);
+        etName.setOnClickListener(this);
+
         btGallery = findViewById(R.id.btGallery);
         btGallery.setOnClickListener(this);
+
         imageView = findViewById(R.id.imageView);
+
+        btSave = findViewById(R.id.btSave);
+        btSave.setOnClickListener(this);
+
+        SharedPreferences pref = getSharedPreferences("mypref", MODE_PRIVATE);
+
+        String name = pref.getString(s:"name", s1:null);
+
+        tvName = findViewById(R.id.tvName);
+        if (name != null) {
+            tvName.setOnClickListener(this);
+        }
     }
 
     @Override
     public void onClick(View v) {
+        SharedPreferences pref =getSharedPreferences("mypref", MODE_PRIVATE);
+         // open the file for editing
+        SharedPreferences.Editor editor= pref.edit();
+
+        editor.putString(s:"name", etName.getText().toString());
+        editor.commit();
+
+
         if (v == btTakePhoto) {
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(i, CAMERA_REQUEST);

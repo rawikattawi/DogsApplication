@@ -23,7 +23,7 @@
         <activity android:name=".DogProfile" />
         <activity android:name=".AboutAplication" />
         <activity android:name=".FireActivity" />
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>
