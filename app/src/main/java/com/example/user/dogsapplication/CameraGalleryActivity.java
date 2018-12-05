@@ -127,5 +127,3 @@ public class CameraGalleryActivity extends AppCompatActivity implements View.OnC
             return filePath;
     }
 }
-
-

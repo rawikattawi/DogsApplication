@@ -2,7 +2,10 @@ package com.example.user.dogsapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +16,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomAdapter extends ArrayAdapter<Item>{
+public class CustomAdapter extends ArrayAdapter<Dog>{
     private int resourceLayout;
     private Context mContext;
-    public CustomAdapter(@NonNull Context context, int resource, @NonNull List<Item> objects) {
+    public CustomAdapter(@NonNull Context context, int resource, @NonNull List<Dog> objects) {
         super(context, resource, objects);
         this.resourceLayout = resource;
         this.mContext = context;
@@ -28,14 +31,15 @@ public class CustomAdapter extends ArrayAdapter<Item>{
         if (V == null)
             V = LayoutInflater.from(mContext).inflate(resourceLayout,parent,false);
 
-        Item p = getItem(position);
+        Dog p = getItem(position);
 
         if (p != null){
             TextView tvName = (TextView) V.findViewById(R.id.tvName);
-            tvName.setText(p.getNmae());
+            tvName.setText(p.getName());
 
             ImageView imageView = (ImageView) V.findViewById(R.id.imageView);
-            imageView.setImageResource(p.getImage());
+            imageView.setImageBitmap(StringToBitMap(p.getImage()));
+        //    imageView.setImageResource(StringToBitMap(p.getImage()));
 
             Button btEdit = V.findViewById(R.id.btEdit);
             btEdit.setOnClickListener(new View.OnClickListener() {
@@ -49,5 +53,19 @@ public class CustomAdapter extends ArrayAdapter<Item>{
         }
         return V;
 
+    }
+    /**
+     * @param encodedString
+     * @return bitmap (from given string)
+     */
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }
