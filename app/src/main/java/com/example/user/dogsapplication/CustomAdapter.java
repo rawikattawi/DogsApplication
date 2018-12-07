@@ -31,7 +31,7 @@ public class CustomAdapter extends ArrayAdapter<Dog>{
         if (V == null)
             V = LayoutInflater.from(mContext).inflate(resourceLayout,parent,false);
 
-        Dog p = getItem(position);
+        final Dog p = getItem(position);
 
         if (p != null){
             TextView tvName = (TextView) V.findViewById(R.id.tvName);
@@ -45,7 +45,8 @@ public class CustomAdapter extends ArrayAdapter<Dog>{
             btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(mContext, DogProfile.class);
+                    Intent i = new Intent(mContext, DogDetailsActivity.class);
+                    i.putExtra("dog", p);
                     mContext.startActivity(i);
                 }
             });

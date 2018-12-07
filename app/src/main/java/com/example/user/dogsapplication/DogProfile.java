@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DogProfile extends AppCompatActivity implements View.OnClickListener{
+
     private static final int CAMERA_REQUEST = 0;
     private static final int SELECT_IMAGE = 1;
     //1.

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyDogList extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
+public class MyDogList extends AppCompatActivity implements  View.OnClickListener{
     ListView lvDogs;
     CustomAdapter arrayAdapter;
     ArrayList<Dog> arrayList = new ArrayList<>();
@@ -43,7 +44,7 @@ public class MyDogList extends AppCompatActivity implements AdapterView.OnItemCl
 
         arrayAdapter = new CustomAdapter(this,R.layout.costumrow, arrayList);
         lvDogs.setAdapter(arrayAdapter);
-        lvDogs.setOnItemClickListener(this);
+      //  lvDogs.setOnItemClickListener(this);
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -77,14 +78,14 @@ public class MyDogList extends AppCompatActivity implements AdapterView.OnItemCl
         });
     }
 
-    @Override
+/*    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        arrayList.get(position);
-        if(position == 0){
-            Intent i = new Intent(this, DogDetailsActivity.class);
-            startActivity(i);
-        }
-    }
+
+        Toast.makeText(this, "Clicked", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, DogDetailsActivity.class);
+        i.putExtra("dog",arrayList.get(position));
+        startActivity(i);
+    }*/
 
     @Override
     public void onClick(View v) {

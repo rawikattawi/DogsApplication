@@ -2,7 +2,9 @@ package com.example.user.dogsapplication;
 
 import android.graphics.Bitmap;
 
-public class Dog {
+import java.io.Serializable;
+
+public class Dog implements Serializable{
     private String image;
     private String name;
     private String date;
