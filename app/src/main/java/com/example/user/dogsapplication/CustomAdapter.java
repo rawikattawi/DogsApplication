@@ -46,7 +46,7 @@ public class CustomAdapter extends ArrayAdapter<Dog>{
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(mContext, DogDetailsActivity.class);
-                    i.putExtra("dog", p);
+                //    i.putExtra("dog", p);
                     mContext.startActivity(i);
                 }
             });
