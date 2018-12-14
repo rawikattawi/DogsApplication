@@ -53,9 +53,11 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Map<String, String> dog = (Map<String, String>) dataSnapshot.getValue();
-
+                String key = dataSnapshot.getKey();
                 Dog d1 = new Dog(dog.get("image"), dog.get("name"), dog.get("date"),dog.get("weight"),dog.get("time"));
+                d1.setKey(key);
                 arrayList.add(d1);
+
                 arrayAdapter.notifyDataSetChanged();
             }
 

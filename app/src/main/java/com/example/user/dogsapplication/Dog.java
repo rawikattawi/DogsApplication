@@ -9,7 +9,9 @@ public class Dog implements Serializable{
     private String name;
     private String date;
     private String weight;
+
     private String time;
+    private String key;
 
 
     public Dog(String image, String name, String date, String weight, String time) {
@@ -18,6 +20,14 @@ public class Dog implements Serializable{
         this.date = date;
         this.weight = weight;
         this.time = time;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getImage() {
