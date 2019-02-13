@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,15 +39,16 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
     Button btAdd, btCamera, btGallery;
     ImageView imageView;
     Bitmap bitmap;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
 
-        final FirebaseDatabase firebaseDatabase;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Dogs");
+        final DatabaseReference myRef = database.getReference("Dogs/Users");
 
         //2.
         etDogName = findViewById(R.id.etDogName);
@@ -75,7 +78,7 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
                 String photo = BitMapToString(bitmap);
                 Dog dog = new Dog(photo,name, date, weight, time);
 
-                myRef.push().setValue(dog);
+                myRef.child(user.getUid()).push().setValue(dog);
 
                 Intent i = new Intent(DogProfile.this, MyDogList.class);
                 startActivity(i);

@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,7 +20,9 @@ public class DogDetailsActivity extends AppCompatActivity implements View.OnClic
     Dog dog;
     // final FirebaseDatabase firebaseDatabase;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference("Dogs");
+    final DatabaseReference myRef = database.getReference("Dogs/Users");
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,13 @@ public class DogDetailsActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        myRef.child(dog.getKey()).child("date").setValue("1111111");
+
+        myRef.child(user.getUid()).child(dog.getKey()).child("date").setValue(etDate.getText().toString());
+        myRef.child(user.getUid()).child(dog.getKey()).child("name").setValue(etDogName.getText().toString());
+        myRef.child(user.getUid()).child(dog.getKey()).child("time").setValue(etTime.getText().toString());
+        myRef.child(user.getUid()).child(dog.getKey()).child("weight").setValue(etWeight.getText().toString());
+
+
     }
 
 }

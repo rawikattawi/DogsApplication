@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
         }
 
-        
+
         if(which==dialog.BUTTON_NEGATIVE) {
             Toast.makeText(this,"No", Toast.LENGTH_LONG ).show();
         }
