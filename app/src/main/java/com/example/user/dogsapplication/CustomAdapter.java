@@ -31,7 +31,7 @@ public class CustomAdapter extends ArrayAdapter<Dog>{
         if (V == null)
             V = LayoutInflater.from(mContext).inflate(resourceLayout,parent,false);
 
-        final Dog p = getItem(position);
+        Dog p = getItem(position);
 
         if (p != null){
             TextView tvName = (TextView) V.findViewById(R.id.tvName);
@@ -39,14 +39,14 @@ public class CustomAdapter extends ArrayAdapter<Dog>{
 
             ImageView imageView = (ImageView) V.findViewById(R.id.imageView);
             imageView.setImageBitmap(StringToBitMap(p.getImage()));
-        //    imageView.setImageResource(StringToBitMap(p.getImage()));
 
             Button btEdit = V.findViewById(R.id.btEdit);
+            final Dog p1 = p;
             btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(mContext, DogDetailsActivity.class);
-                //    i.putExtra("dog", p);
+                    i.putExtra("dog", p1);
                     mContext.startActivity(i);
                 }
             });

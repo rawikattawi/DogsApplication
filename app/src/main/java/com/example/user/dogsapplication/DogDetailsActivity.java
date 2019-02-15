@@ -45,8 +45,8 @@ public class DogDetailsActivity extends AppCompatActivity implements View.OnClic
             etTime = findViewById(R.id.etTime);
             etTime.setText(dog.getTime());
 
-       //     imageView = findViewById(R.id.imageView);
-        //    imageView
+            //     imageView = findViewById(R.id.imageView);
+            //    imageView
 
 
         }
@@ -65,12 +65,14 @@ public class DogDetailsActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-
-        myRef.child(user.getUid()).child(dog.getKey()).child("date").setValue(etDate.getText().toString());
-        myRef.child(user.getUid()).child(dog.getKey()).child("name").setValue(etDogName.getText().toString());
-        myRef.child(user.getUid()).child(dog.getKey()).child("time").setValue(etTime.getText().toString());
-        myRef.child(user.getUid()).child(dog.getKey()).child("weight").setValue(etWeight.getText().toString());
-
+        if(btEdit == v) {
+            myRef.child(user.getUid()).child(dog.getKey()).child("date").setValue(etDate.getText().toString());
+            myRef.child(user.getUid()).child(dog.getKey()).child("name").setValue(etDogName.getText().toString());
+            myRef.child(user.getUid()).child(dog.getKey()).child("time").setValue(etTime.getText().toString());
+            myRef.child(user.getUid()).child(dog.getKey()).child("weight").setValue(etWeight.getText().toString());
+        }else{
+            myRef.child(user.getUid()).child(dog.getKey()).setValue(null);
+        }
 
     }
 

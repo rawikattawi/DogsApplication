@@ -50,6 +50,7 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Dogs/Users");
 
+
         //2.
         etDogName = findViewById(R.id.etDogName);
         etDate = findViewById(R.id.etDate);

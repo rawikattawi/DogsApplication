@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,12 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyDogList extends AppCompatActivity implements  View.OnClickListener{
+public class MyDogList extends AppCompatActivity implements  View.OnClickListener, AdapterView.OnItemClickListener{
     ListView lvDogs;
     CustomAdapter arrayAdapter;
     ArrayList<Dog> arrayList = new ArrayList<>();
 
     Button btAdd;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser current = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,13 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
 
         final FirebaseDatabase firebaseDatabase;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Dogs");
+        final DatabaseReference myRef = database.getReference("Dogs/Users/"+current.getUid());
 
         btAdd = findViewById(R.id.btAdd);
         btAdd.setOnClickListener(this);
 
         lvDogs = (ListView)  findViewById(R.id.myDogList);
+        lvDogs.setOnItemClickListener(this);
 
         arrayAdapter = new CustomAdapter(this,R.layout.costumrow, arrayList);
         lvDogs.setAdapter(arrayAdapter);
@@ -116,5 +121,12 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent i = new Intent(this, DogDetailsActivity.class);
+        i.putExtra("dog", arrayList.get(position));
+        startActivity(i);
     }
 }
