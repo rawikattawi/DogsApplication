@@ -1,6 +1,9 @@
 package com.example.user.dogsapplication;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +24,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btMyDogs.setOnClickListener(this);
         btAboutApp.setOnClickListener(this);
+
+        //and then in your activity set the alarm manger to start the broadcast receiver at a specific time and use AlarmManager setRepeating method to repeat it this example bellow will repeat it every day.
+        private static final int NOTIFICATION_REMINDER_NIGHT = 3;
+        Intent notifyIntent = new Intent(this,MyReceiver.class);
+        private Context context;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast
+                (context, NOTIFICATION_REMINDER_NIGHT, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
+                1000 * 60 * 60 * 24, pendingIntent);
+
     }
 
 
@@ -62,5 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
 
     }
+
 }
 
