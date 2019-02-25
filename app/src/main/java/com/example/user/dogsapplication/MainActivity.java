@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
     Button btMyDogs, btAboutApp;
+    private static final int NOTIFICATION_REMINDER_NIGHT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btAboutApp.setOnClickListener(this);
 
         //and then in your activity set the alarm manger to start the broadcast receiver at a specific time and use AlarmManager setRepeating method to repeat it this example bellow will repeat it every day.
-        private static final int NOTIFICATION_REMINDER_NIGHT = 3;
         Intent notifyIntent = new Intent(this,MyReceiver.class);
-        private Context context;
         PendingIntent pendingIntent = PendingIntent.getBroadcast
-                (context, NOTIFICATION_REMINDER_NIGHT, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                (this, NOTIFICATION_REMINDER_NIGHT, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
                 1000 * 60 * 60 * 24, pendingIntent);
 
