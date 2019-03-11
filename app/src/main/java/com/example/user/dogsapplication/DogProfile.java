@@ -1,6 +1,9 @@
 package com.example.user.dogsapplication;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,19 +32,23 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DogProfile extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CAMERA_REQUEST = 0;
     private static final int SELECT_IMAGE = 1;
+    private static final int NOTIFICATION_REMINDER_NIGHT = 2;
     //1.
-    EditText etDogName ,etDate , etWeight, etTime ;
+    EditText etDogName ,etDate , etWeight;
+    //etTime ;
     Button btAdd, btCamera, btGallery;
     ImageView imageView;
     Bitmap bitmap;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
+    int hour, min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,7 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
         etDate = findViewById(R.id.etDate);
         etWeight = findViewById(R.id.etWieght);
         //option to add a list of time picker
-        etTime = findViewById(R.id.etTime);
+       // etTime = findViewById(R.id.etTime);
 
         btCamera = findViewById(R.id.btCamera);
         btCamera.setOnClickListener(this);
@@ -67,6 +75,27 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
         imageView = findViewById(R.id.imageView);
 
         btAdd = findViewById(R.id.btAdd);
+        TimePicker addtime;
+        addtime = (TimePicker) findViewById(R.id.timePicker);
+        addtime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                hour = hourOfDay;
+                min = minute;
+                Toast.makeText(getApplicationContext(), hourOfDay+":"+minute, Toast.LENGTH_SHORT).show();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, min);
+                calendar.set(Calendar.SECOND, 00);
+
+                Intent notifyIntent = new Intent(getApplicationContext(),MyReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast
+                        (getApplicationContext(), NOTIFICATION_REMINDER_NIGHT, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  calendar.getTimeInMillis(),
+                        1000 * 60 * 60 * 24, pendingIntent);
+            }
+        });
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +104,7 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
                 String name = etDogName.getText().toString();
                 String date = etDate.getText().toString();
                 String weight = etWeight.getText().toString();
-                String time = etTime.getText().toString();
+                String time = hour+":"+min;
                 String photo = BitMapToString(bitmap);
                 Dog dog = new Dog(photo,name, date, weight, time);
 

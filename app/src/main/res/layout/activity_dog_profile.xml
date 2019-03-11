@@ -32,41 +32,42 @@
         android:hint="weight"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="time" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@mipmap/ic_launcher" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="106dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Camera" />
+            app:srcCompat="@mipmap/ic_launcher" />
 
-        <Button
-            android:id="@+id/btGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Gallery" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gallery" />
+
+            <Button
+                android:id="@+id/btCamera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Camera" />
+        </LinearLayout>
+
     </LinearLayout>
-
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"></TimePicker>
     <Button
         android:id="@+id/btAdd"
         android:layout_width="match_parent"
