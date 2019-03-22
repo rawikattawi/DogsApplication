@@ -25,6 +25,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth mAuth;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btSignUp = findViewById(R.id.btnSignUp);
         btSignUp.setOnClickListener(this);
     }
+
+    /**
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        if(etUserName.getText().toString().equals("") ||etPassword.getText().toString().equals("")){
+            Toast.makeText(SignUpActivity.this, "User Or Password Empty.",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            createUser(etUserName.getText().toString(), etPassword.getText().toString());
+        }
+
+    }
+
+    /**
+     * check if user signed in currently not used
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -45,9 +65,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //   updateUI(currentUser);
     }
+
+    /**
+     * this method will get the user email and password as parameters
+     * and will create a new user in the firebase, in case successful
+     * user will be moved to MainActivity, else a Toast will be shown.
+     *
+     * @param email
+     * @param password
+     */
     public void createUser(String email, String password){
+
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -65,18 +97,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             //updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
-    @Override
-    public void onClick(View v) {
-        if(etUserName.getText().toString().equals("") ||etPassword.getText().toString().equals("")){
-            Toast.makeText(SignUpActivity.this, "User Or Password Empty.",
-                    Toast.LENGTH_SHORT).show();
-        }else{
-            createUser(etUserName.getText().toString(), etPassword.getText().toString());
-        }
 
-    }
 }

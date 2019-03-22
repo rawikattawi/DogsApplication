@@ -37,7 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    /**
+     * there is two buttens the firts one moves the user to the doglist activity .
+     * the scond butten moves the user to aboutaplication activity.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if(v==btMyDogs){

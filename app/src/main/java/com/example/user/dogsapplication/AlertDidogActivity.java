@@ -14,6 +14,11 @@ public class AlertDidogActivity extends AppCompatActivity implements DialogInter
         setContentView(R.layout.activity_alert_didog);
     }
 
+    /**
+     *
+     * @param dialog
+     * @param which
+     */
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if(which==dialog.BUTTON_POSITIVE){

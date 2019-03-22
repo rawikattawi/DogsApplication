@@ -35,6 +35,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
+
 public class DogProfile extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CAMERA_REQUEST = 0;
@@ -119,6 +121,12 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    /**
+     * this method takes the view as a parameter . if the review is btCamera the method startActivityForResult is called
+     * with the parameter camera_request.
+     * else the method startActivityForResult is called with the parameter select image.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
       if (v == btCamera) {
@@ -130,6 +138,14 @@ public class DogProfile extends AppCompatActivity implements View.OnClickListene
           startActivityForResult(i, SELECT_IMAGE);
       }
     }
+
+    /**
+     * this method takes the requestCode and resultCode and data as parameters.
+     * 
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");

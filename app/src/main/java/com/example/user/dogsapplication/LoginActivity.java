@@ -42,6 +42,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btSignUp.setOnClickListener(this);
     }
 
+    /**
+     * this method will get the user email and password as parameters
+     * and will log in into an existing profile user in the firebase, in case successful
+     * user will be moved to MainActivity, else a Toast will be shown.
+     * @param email
+     * @param password
+     */
+
     public void signIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

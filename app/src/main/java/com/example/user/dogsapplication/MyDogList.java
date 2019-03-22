@@ -42,6 +42,7 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
 
         final FirebaseDatabase firebaseDatabase;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //reference for the user's dogs in the firebase
         final DatabaseReference myRef = database.getReference("Dogs/Users/"+current.getUid());
 
         btAdd = findViewById(R.id.btAdd);
@@ -50,10 +51,12 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
         lvDogs = (ListView)  findViewById(R.id.myDogList);
         lvDogs.setOnItemClickListener(this);
 
+
         arrayAdapter = new CustomAdapter(this,R.layout.costumrow, arrayList);
         lvDogs.setAdapter(arrayAdapter);
       //  lvDogs.setOnItemClickListener(this);
 
+        //this method will go over the list of dogs in firebase for each user and add it to the arraylist
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -103,6 +106,11 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
         startActivity(i);
     }
 
+    /**
+     * this method will add the menu to this activity
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
@@ -110,6 +118,11 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * this method defines the action upon user choosing an option from the option menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
@@ -123,6 +136,13 @@ public class MyDogList extends AppCompatActivity implements  View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * this method will take the user to the selected dog for more details
+     * @param parent
+     * @param view
+     * @param position - the selected item
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent i = new Intent(this, DogDetailsActivity.class);
